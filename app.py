@@ -10,12 +10,14 @@ st.set_page_config(page_title="Smart Price Tracker", page_icon="🛒", layout="w
 # 2. [필수] 서버 시작 시 DB 테이블 생성
 database.init_db()
 
-# 3. 봇 백그라운드 실행 로직
-if 'bot_started' not in st.session_state:
+@st.cache_resource
+def start_background_bot():
     thread = threading.Thread(target=bot.job_loop)
     thread.daemon = True
     thread.start()
-    st.session_state['bot_started'] = True
+    return True
+
+start_background_bot()
 
 # ================= 사이드바: 상품 검색 및 등록 =================
 with st.sidebar:

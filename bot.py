@@ -61,7 +61,7 @@ schedule.every(1).minutes.do(job)
 def job_loop():
     job()
 
-    schedule.every(1).minutes.do(job)
+    schedule.every(10).minutes.do(job)
 
 # 무한 루프를 돌며 예약된 시간이 되면 job()을 실행합니다.
     while True:

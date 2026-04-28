@@ -64,9 +64,9 @@ def job_loop():
     schedule.every(1).minutes.do(job)
 
 # 무한 루프를 돌며 예약된 시간이 되면 job()을 실행합니다.
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 if __name__ == "__main__":
     job_loop()

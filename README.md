@@ -10,8 +10,6 @@
 
 단순한 웹 스크래핑을 넘어, **웹 프론트엔드 대시보드(UI) - 관계형 데이터베이스(DB) - 백그라운드 스케줄러(Bot) - 메신저 API(Notification)** 로 이어지는 전체 데이터 흐름을 직접 설계하고 구현했습니다.
 
-👉 **[Live Demo 보러가기](여기에_Streamlit_Cloud_배포_주소를_넣어주세요)**
-
 ---
 
 ## 🚀 주요 기능 (Key Features)
@@ -68,6 +66,6 @@ TELEGRAM_CHAT_ID="당신의_텔레그램_챗_아이디"
 streamlit run app.py
 ```
 -----
-👉 [Live Demo 보러가기](https://sptnanfu.streamlit.https://sptnanfu.streamlit.app/)
+👉 [Live Demo 보러가기](https://sptnanfu.streamlit.app/)
 
 

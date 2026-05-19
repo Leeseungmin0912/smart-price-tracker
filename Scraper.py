@@ -3,7 +3,7 @@ import requests
 import urllib.parse
 import re
 from dotenv import load_dotenv
-from bs4 import BeautifulSoup  # 💡 [필수] 누락되었던 BeautifulSoup 임포트 추가
+from bs4 import BeautifulSoup
 
 load_dotenv()
 

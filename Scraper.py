@@ -10,6 +10,49 @@ def get_product_info(keyword, min_price=10000, max_price=None, custom_exclude=""
     client_id = os.getenv("NAVER_CLIENT_ID")
     client_secret = os.getenv("NAVER_CLIENT_SECRET")
 
+    # ==========================================
+    # 💡 [새로 추가된 함수] URL에서 상품 이름만 쏙 빼오는 기계
+    # ==========================================
+    def extract_title_from_url(url):
+        """URL에 접속해서 상품의 진짜 이름을 캐내는 함수"""
+        headers = {
+            # 우리가 진짜 사람(크롬 브라우저)인 것처럼 속이는 신분증
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+        try:
+            res = requests.get(url, headers=headers)
+            res.raise_for_status()
+            soup = BeautifulSoup(res.text, 'html.parser')
+
+            # 쇼핑몰들은 보통 카톡으로 공유할 때 뜨는 제목을 'og:title'에 숨겨둡니다.
+            og_title = soup.find("meta", property="og:title")
+            if og_title:
+                title = og_title.get("content", "")
+            else:
+                title = soup.title.string if soup.title else ""
+
+            return title.strip()
+        except Exception as e:
+            print(f"URL 파싱 에러: {e}")
+            return None
+
+    # ==========================================
+    # 기존 get_product_info 함수 수정
+    # ==========================================
+    def get_product_info(keyword, min_price=10000, max_price=None, custom_exclude=""):
+
+        # 💡 [핵심 추가] 만약 사용자가 'http'로 시작하는 주소를 넣었다면?
+        if keyword.startswith("http"):
+            print("🔗 URL이 감지되었습니다. 상품명을 추출합니다...")
+            extracted_title = extract_title_from_url(keyword)
+
+            if not extracted_title:
+                return None, None, None
+
+            print(f"📝 추출된 상품명: {extracted_title}")
+            # 추출한 제목을 이제 검색어(keyword)로 둔갑시킵니다!
+            keyword = extracted_title
+
     url = "https://openapi.naver.com/v1/search/shop.json"
     headers = {
         "X-Naver-Client-Id": client_id,

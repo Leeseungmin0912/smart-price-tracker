@@ -73,7 +73,7 @@ st.divider()
 if len(df) > 0:
     st.dataframe(
         df,
-        use_container_width=True,
+        width='stretch',
         hide_index=True,
         column_config={
             "현재가": st.column_config.NumberColumn(format="%d 원"),
